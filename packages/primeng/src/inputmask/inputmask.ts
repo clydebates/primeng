@@ -33,6 +33,7 @@ import {
     Component,
     ContentChild,
     ContentChildren,
+    DoCheck,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -115,7 +116,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class InputMask extends BaseComponent implements OnInit, AfterContentInit, ControlValueAccessor {
+export class InputMask extends BaseComponent implements DoCheck, OnInit, AfterContentInit, ControlValueAccessor {
     /**
      * HTML5 input type.
      * @group Props
@@ -372,6 +373,10 @@ export class InputMask extends BaseComponent implements OnInit, AfterContentInit
                     break;
             }
         });
+    }
+
+    ngDoCheck() {
+        this.updateFilledState();
     }
 
     initMask() {
